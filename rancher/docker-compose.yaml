@@ -1,0 +1,18 @@
+version: '3'
+services:
+  rancher:
+    image: rancher/rancher
+    privileged: true
+    volumes:
+    - rancher_data:/var/lib/rancher
+  nginx:
+    image: "nginx:alpine"
+    ports:
+    - 80:80
+    - 443:443
+    volumes:
+    - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    - ./certs/domain.com.crt:/etc/nginx/domain.com.crt:ro
+    - ./certs/domain.com.key:/etc/nginx/domain.com.key:ro
+volumes:
+  rancher_data: {}
