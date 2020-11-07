@@ -1,0 +1,25 @@
+version: '3'
+services:
+  registry:
+    image: sonatype/nexus3
+    ports:
+    - 8081:8081
+    - 5000:5000
+    - 5001:5001
+    volumes:
+    - nexus-data:/nexus-data
+  nginx:
+    image: "nginx:alpine"
+    ports:
+    - 80:80
+    - 443:443
+    volumes:
+    - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    - ./certs/hub.domain.com.crt:/etc/nginx/hub.domain.com.crt:ro
+    - ./certs/hub.domain.com.key:/etc/nginx/hub.domain.com.key:ro
+    - ./certs/registry1.domain.com.crt:/etc/nginx/registry1.domain.com.crt:ro
+    - ./certs/registry1.domain.com.key:/etc/nginx/registry1.domain.com.key:ro
+    - ./certs/registry2.domain.com.crt:/etc/nginx/registry2.domain.com.crt:ro
+    - ./certs/registry2.domain.com.key:/etc/nginx/registry2.domain.com.key:ro
+volumes:
+  nexus-data: {}
