@@ -1,0 +1,20 @@
+version: '3'
+services:
+  registry:
+    image: docker.bintray.io/jfrog/artifactory-jcr
+    ports:
+    - 8081:8081
+    - 8082:8082
+    volumes:
+    - artifactory6_data:/var/opt/jfrog/artifactory
+  nginx:
+    image: "nginx:alpine"
+    ports:
+    - 80:80
+    - 443:443
+    volumes:
+    - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    - ./certs/registry.domain.com.crt:/etc/nginx/registry.domain.com.crt:ro
+    - ./certs/registry.domain.com.key:/etc/nginx/registry.domain.com.key:ro
+volumes:
+  artifactory6_data: {}
