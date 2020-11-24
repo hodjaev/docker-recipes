@@ -5,6 +5,7 @@ services:
     privileged: true
     volumes:
     - rancher_data:/var/lib/rancher
+    - ./ca-certs/web01-dev.crt:/etc/rancher/ssl/cacerts.pem
   nginx:
     image: "nginx:alpine"
     ports:
